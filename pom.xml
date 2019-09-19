@@ -21,12 +21,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.dremio.plugin</groupId>
-  <version>3.2.4-201906051751050278-1bcce62</version>
+  <version>4.0.0-201909121834570395-c7a5071</version>
   <artifactId>dremio-db2v11-plugin</artifactId>
   <name>Dremio IBM DB2 v11 Community Connector</name>
 
   <properties>
-    <version.dremio>3.2.4-201906051751050278-1bcce62</version.dremio>
+    <version.dremio>4.0.0-201909121834570395-c7a5071</version.dremio>
   </properties>
 
   <dependencies>
@@ -34,6 +34,12 @@
       <groupId>com.dremio.community.plugins</groupId>
       <artifactId>dremio-ce-jdbc-plugin</artifactId>
       <version>${version.dremio}</version>
+    </dependency>
+	<dependency>
+     <groupId>org.hibernate</groupId>
+     <artifactId>hibernate-validator</artifactId>
+     <version>4.2.0.Final</version>
+     <scope>compile</scope>       
     </dependency>
   </dependencies>
 
