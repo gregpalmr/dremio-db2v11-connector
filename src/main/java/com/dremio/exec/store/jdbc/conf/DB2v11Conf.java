@@ -29,6 +29,7 @@ import com.dremio.exec.store.jdbc.DataSources;
 import com.dremio.exec.store.jdbc.JdbcStoragePlugin;
 import com.dremio.exec.store.jdbc.JdbcStoragePlugin.Config;
 import com.dremio.exec.store.jdbc.dialect.arp.ArpDialect;
+import com.dremio.exec.store.jdbc.dialect.DB2Dialect;
 import com.google.common.annotations.VisibleForTesting;
 
 import io.protostuff.Tag;
@@ -40,7 +41,7 @@ import io.protostuff.Tag;
 public class DB2v11Conf extends AbstractArpConf<DB2v11Conf> {
   private static final String ARP_FILENAME = "arp/implementation/db2v11-arp.yaml";
   private static final ArpDialect ARP_DIALECT =
-      AbstractArpConf.loadArpFile(ARP_FILENAME, (ArpDialect::new));
+      AbstractArpConf.loadArpFile(ARP_FILENAME, (DB2Dialect::new));
   private static final String DRIVER = "com.ibm.db2.jcc.DB2Driver";
 
   @NotBlank

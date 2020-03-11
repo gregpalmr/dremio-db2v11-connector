@@ -90,7 +90,7 @@ data_types:
   - source:
       name: "DECFLOAT"
     dremio:
-      name: "double"
+      name: "float"
     required_cast_arguments: "none"
   - source:
       name: "DOUBLE"
@@ -223,6 +223,10 @@ relational_algebra:
         enable: true
       count_distinct:
         enable: true
+      count_multi:
+        enable: false
+      count_distinct_multi:
+        enable: false
     functions:
     - names:
       - "avg"
@@ -267,6 +271,7 @@ relational_algebra:
       - args:
         - "integer"
         return: "bigint"
+        rewrite: "SUM(CAST({0} AS BIGINT))"
       - args:
         - "bigint"
         return: "bigint"
@@ -275,7 +280,30 @@ relational_algebra:
         return: "decimal"
       - args:
         - "float"
-        return: "float"
+        return: "double"
+    - names:
+      - "variance"
+      signatures:
+      - args:
+        - "double"
+        rewrite: "VARIANCE({0})"
+        return: "double"
+      - args:
+        - "integer"
+        rewrite: "VARIANCE({0})"
+        return: "double"
+      - args:
+        - "bigint"
+        rewrite: "VARIANCE({0})"
+        return: "double"
+      - args:
+        - "float"
+        rewrite: "VARIANCE({0})"
+        return: "double"
+      - args:
+        - "decimal"
+        rewrite: "VARIANCE({0})"
+        return: "double"     
   except:
     enable: false
   project:
@@ -1750,29 +1778,6 @@ expressions:
         - "double"
         rewrite: "STDDEV({0})"
         return: "double"
-    - names:
-      - "variance"
-      signatures:
-      - args:
-        - "double"
-        rewrite: "VARIANCE({0})"
-        return: "double"
-      - args:
-        - "integer"
-        rewrite: "VARIANCE({0})"
-        return: "double"
-      - args:
-        - "bigint"
-        rewrite: "VARIANCE({0})"
-        return: "double"
-      - args:
-        - "float"
-        rewrite: "VARIANCE({0})"
-        return: "double"
-      - args:
-        - "decimal"
-        rewrite: "VARIANCE({0})"
-        return: "double"          
     # Date/Time
     - names:
         - "current_date"
@@ -2172,7 +2177,7 @@ expressions:
         - args:
             - "varchar"
           return: "varchar"
-          rewrite: "LOWER(VARCHAR({0})"
+          rewrite: "LOWER(VARCHAR({0}))"
     - names:
         - "lpad" 
       signatures:
@@ -2240,12 +2245,6 @@ expressions:
             - "varchar"
           return: "integer"
           rewrite: "POSITION({0}, {1})"
-        - args:
-            - "varchar"
-            - "varchar"
-            - "integer"
-          return: "integer"
-          rewrite: "POSITION({0}, {1}, {2})"
     - names:
         - "regexp_replace"
       signatures:
@@ -2552,12 +2551,16 @@ expressions:
             - "timestamp"
             - "varchar"
           return: "timestamp"
-          
-    # Window (SUM etc.. OVER...)
-    # TBC
-
-
   variable_length_operators:
+    - names:
+        - concat
+      variable_signatures:
+        - return: varchar
+          arg_type: varchar
+          variable_rewrite:
+            separator_sequence:
+              - ' || '
+            rewrite_format: '{separator[0]}'
     - names:
         - and
       variable_signatures:
@@ -2568,3 +2571,4 @@ expressions:
       variable_signatures:
         - return: boolean
           arg_type: boolean
+  window_functions: []
