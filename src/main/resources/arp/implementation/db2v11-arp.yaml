@@ -38,6 +38,51 @@ data_types:
       name: "bigint"
     required_cast_arguments: "none"
   - source:
+      name: "BOOLEAN"
+    dremio:
+      name: "boolean"
+    required_cast_arguments: "none"
+  - source:
+      name: "VARCHAR"
+    dremio:
+      name: "varchar"
+    required_cast_arguments: "none"
+  - source:
+      name: "INTEGER"
+    dremio:
+      name: "integer"
+    required_cast_arguments: "none"
+  - source:
+      name: "DOUBLE"
+    dremio:
+      name: "double"
+    required_cast_arguments: "none"
+  - source:
+      name: "DECIMAL"
+    dremio:
+      name: "decimal"
+    required_cast_arguments: "none"
+  - source:
+      name: "DECFLOAT"
+    dremio:
+      name: "float"
+    required_cast_arguments: "none"
+  - source:
+      name: "DATE"
+    dremio:
+      name: "date"
+    required_cast_arguments: "none"
+  - source:
+      name: "TIME"
+    dremio:
+      name: "time"
+    required_cast_arguments: "none"
+  - source:
+      name: "TIMESTAMP"
+    dremio:
+      name: "timestamp"
+    required_cast_arguments: "none"
+  - source:
       name: "BINARY"
     dremio:
       name: "varchar"
@@ -46,11 +91,6 @@ data_types:
       name: "BLOB" #check if BLOB should map to VARCHAR or if Dremio has notion of BLOB
     dremio:
       name: "varchar"
-    required_cast_arguments: "none"
-  - source:
-      name: "BOOLEAN"
-    dremio:
-      name: "boolean"
     required_cast_arguments: "none"
   - source:
       name: "CHAR"
@@ -73,39 +113,14 @@ data_types:
       name: "varchar"
     required_cast_arguments: "none"
   - source:
-      name: "DATE"
-    dremio:
-      name: "date"
-    required_cast_arguments: "none"
-  - source:
       name: "DBCLOB" #check if DBCLOB should map to VARCHAR or if Dremio has notion of CLOB
     dremio:
       name: "varchar"
     required_cast_arguments: "none"
   - source:
-      name: "DECIMAL"
-    dremio:
-      name: "decimal"
-    required_cast_arguments: "none"
-  - source:
-      name: "DECFLOAT"
-    dremio:
-      name: "float"
-    required_cast_arguments: "none"
-  - source:
-      name: "DOUBLE"
-    dremio:
-      name: "double"
-    required_cast_arguments: "none"
-  - source:
       name: "GRAPHIC"
     dremio:
       name: "varchar"
-    required_cast_arguments: "none"
-  - source:
-      name: "INTEGER"
-    dremio:
-      name: "integer"
     required_cast_arguments: "none"
   - source:
       name: "LONGVAR"
@@ -148,32 +163,12 @@ data_types:
       name: "integer"
     required_cast_arguments: "none"
   - source:
-      name: "TIME"
-    dremio:
-      name: "time"
-    required_cast_arguments: "none"
-  - source:
-      name: "TIMESTAMP"
-    dremio:
-      name: "timestamp"
-    required_cast_arguments: "none"
-  - source:
-      name: "TIMESTMP"
-    dremio:
-      name: "timestamp"
-    required_cast_arguments: "none"
-  - source:
       name: "TINYINT"
     dremio:
       name: "integer"
     required_cast_arguments: "none"
   - source:
       name: "VARBINARY"
-    dremio:
-      name: "varchar"
-    required_cast_arguments: "none"
-  - source:
-      name: "VARCHAR"
     dremio:
       name: "varchar"
     required_cast_arguments: "none"
@@ -239,6 +234,12 @@ relational_algebra:
         return: "double"
       - args:
         - "integer"
+        return: "double"
+      - args:
+        - "float"
+        return: "double"
+      - args:
+        - "bigint"
         return: "double"
     - names:
       - "max"
