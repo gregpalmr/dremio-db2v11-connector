@@ -37,7 +37,7 @@ import io.protostuff.Tag;
 /**
  * Configuration for TIBCODataVirtualization sources.
  */
-@SourceType(value = "IBMDB2V11ARP", label = "IBM DB2 v11")
+@SourceType(value = "IBMDB2V11ARP", label = "IBM DB2 - IBM DB2 v11")
 public class DB2v11Conf extends AbstractArpConf<DB2v11Conf> {
   private static final String ARP_FILENAME = "arp/implementation/db2v11-arp.yaml";
   private static final ArpDialect ARP_DIALECT =
@@ -70,6 +70,10 @@ public class DB2v11Conf extends AbstractArpConf<DB2v11Conf> {
   @DisplayMetadata(label = "Password")
   public String password;
 
+  @Tag(6)
+  @NotMetadataImpacting
+  @DisplayMetadata(label = "Grant External Query Access (External Query allows creation of VDS from a Native DB2 query)") 
+  public boolean enableExternalQuery = false;
 
   @VisibleForTesting
   public String toJdbcConnectionString() {
@@ -89,6 +93,7 @@ public class DB2v11Conf extends AbstractArpConf<DB2v11Conf> {
         .withDatasourceFactory(this::newDataSource)
         .clearHiddenSchemas()
         //.addHiddenSchema("SYSTEM")
+        .withAllowExternalQuery(enableExternalQuery)
         .build();
   }
 
